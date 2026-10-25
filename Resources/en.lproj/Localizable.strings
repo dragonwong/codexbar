@@ -1,0 +1,15 @@
+"refresh" = "Refresh Now";
+"quit" = "Quit CodexBar";
+"no_quota" = "No quota data. Check that you are signed in to Codex.";
+"awaiting_update" = "Updating";
+"weekly" = "Week";
+"loading" = "Reading Codex usage…";
+"tooltip" = "Codex remaining quota; right-click to refresh or quit";
+"accessibility" = "Codex remaining quota, ";
+"codex_missing" = "Codex was not found. Install Codex or set CODEX_BINARY.";
+"quota_denied" = "Codex could not read quota. Check that you are signed in with ChatGPT.";
+"connection_failed" = "Could not read the Codex connection.";
+"disconnected" = "The Codex connection was closed.";
+"response_too_large" = "The Codex response is too large.";
+"timeout" = "Timed out while reading quota.";
+"launch_failed" = "Could not start Codex. Check its installation and permissions.";
