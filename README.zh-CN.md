@@ -1,5 +1,7 @@
 # CodexBar
 
+[官网](https://dragonwong.github.io/codexbar/)
+
 [English](README.md) | 简体中文
 
 一个极简、轻量的 macOS 菜单栏工具，直接显示 Codex 剩余额度和重置时间。

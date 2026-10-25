@@ -1,5 +1,7 @@
 # CodexBar
 
+[Website](https://dragonwong.github.io/codexbar/)
+
 English | [简体中文](README.zh-CN.md)
 
 A minimal, lightweight macOS menu bar app that shows your remaining Codex quota and reset times at a glance.
