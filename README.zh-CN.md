@@ -20,7 +20,7 @@
 
 ## 下载安装
 
-在 [Releases](https://github.com/dragonwong/codexbar/releases) 下载 `CodexBar-0.1.0-universal.zip`，解压后将 `CodexBar.app` 拖入“应用程序”，双击运行。支持 **macOS 13+，Apple Silicon 和 Intel**。
+在 [Releases](https://github.com/dragonwong/codexbar/releases) 下载 `CodexBar-0.1.1-universal.zip`，解压后将 `CodexBar.app` 拖入“应用程序”，双击运行。支持 **macOS 13+，Apple Silicon 和 Intel**。
 
 需要先安装 Codex，并在同一用户环境通过 ChatGPT 登录。工具会查找 Codex.app、ChatGPT.app 内置 CLI 及常见位置的 `codex`。如果尚未登录，在终端运行 `codex login`。
 
@@ -33,7 +33,7 @@
 校验下载文件：在 ZIP 和 `.sha256` 所在目录运行：
 
 ```sh
-shasum -a 256 -c CodexBar-0.1.0-universal.zip.sha256
+shasum -a 256 -c CodexBar-0.1.1-universal.zip.sha256
 ```
 
 如需只修改 CodexBar 的语言，可到“系统设置 → 通用 → 语言与地区 → 应用程序”添加 CodexBar，选择英文或简体中文，修改后重新启动 App。

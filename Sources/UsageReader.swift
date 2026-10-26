@@ -64,7 +64,7 @@ func readQuota() throws -> [String: Any] {
         }
         throw ReaderError(message: L10n.text("timeout"))
     }
-    try send(["id": 1, "method": "initialize", "params": ["clientInfo": ["name": "codexbar", "title": "CodexBar", "version": "0.1.0"]]])
+    try send(["id": 1, "method": "initialize", "params": ["clientInfo": ["name": "codexbar", "title": "CodexBar", "version": "0.1.1"]]])
     _ = try response(1)
     try send(["method": "initialized"])
     try send(["id": 2, "method": "account/rateLimits/read"])

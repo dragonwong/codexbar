@@ -20,7 +20,7 @@ A minimal, lightweight macOS menu bar app that shows your remaining Codex quota 
 
 ## Download and run
 
-Download `CodexBar-0.1.0-universal.zip` from [Releases](https://github.com/dragonwong/codexbar/releases), extract it, drag `CodexBar.app` into Applications, and open it. Supports **macOS 13+, Apple Silicon and Intel**.
+Download `CodexBar-0.1.1-universal.zip` from [Releases](https://github.com/dragonwong/codexbar/releases), extract it, drag `CodexBar.app` into Applications, and open it. Supports **macOS 13+, Apple Silicon and Intel**.
 
 Install Codex first and sign in with ChatGPT under the same user environment. CodexBar looks for the CLI bundled with Codex.app or ChatGPT.app, as well as `codex` in common locations. If you have not signed in yet, run `codex login` in Terminal.
 
@@ -33,7 +33,7 @@ Release builds are ad-hoc signed, **not signed with an Apple Developer ID or not
 To verify a download, run this in the directory containing the ZIP and `.sha256` files:
 
 ```sh
-shasum -a 256 -c CodexBar-0.1.0-universal.zip.sha256
+shasum -a 256 -c CodexBar-0.1.1-universal.zip.sha256
 ```
 
 To change the language for CodexBar only, use **System Settings → General → Language & Region → Applications**, add CodexBar, and choose English or Simplified Chinese. Restart the app after changing its language.
