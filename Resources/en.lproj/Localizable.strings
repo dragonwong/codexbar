@@ -4,7 +4,7 @@
 "awaiting_update" = "Updating";
 "weekly" = "Week";
 "loading" = "Reading Codex usage…";
-"tooltip" = "Codex remaining quota; right-click to refresh or quit";
+"tooltip" = "Codex remaining quota; left-click to refresh or quit";
 "accessibility" = "Codex remaining quota, ";
 "codex_missing" = "Codex was not found. Install Codex or set CODEX_BINARY.";
 "quota_denied" = "Codex could not read quota. Check that you are signed in with ChatGPT.";
@@ -13,3 +13,5 @@
 "response_too_large" = "The Codex response is too large.";
 "timeout" = "Timed out while reading quota.";
 "launch_failed" = "Could not start Codex. Check its installation and permissions.";
+"refreshing" = "Refreshing…";
+"last_updated" = "Last updated: ";

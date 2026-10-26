@@ -14,7 +14,7 @@ A minimal, lightweight macOS menu bar app that shows your remaining Codex quota 
 - Green above 50%, orange from 20–50%, red below 20%, and gray when data is unavailable.
 - Both 5-hour and weekly remaining quotas, with a reset countdown or date.
 - Fetches quota every 60 seconds, updates the local countdown every 15 seconds, and refreshes after your Mac wakes.
-- No redundant panel on left-click. Right-click to refresh or quit.
+- Left-click to refresh or quit. Right-click has no action.
 - English and Simplified Chinese, selected automatically from your macOS language preferences; other languages fall back to English.
 - Native Swift / AppKit, with no third-party runtime libraries or Python dependency.
 

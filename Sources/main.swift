@@ -22,10 +22,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        // Left click intentionally has no action. Right click offers maintenance only.
+        // Only left-click opens the maintenance menu; right-click has no action.
         item.button?.target = self
         item.button?.action = #selector(click)
-        item.button?.sendAction(on: [.rightMouseUp])
+        item.button?.sendAction(on: [.leftMouseUp])
         render()
         refresh()
         timers.append(Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in self?.refresh() })
@@ -34,16 +34,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
     @objc func wake() { refresh() }
     @objc func click() {
-        guard NSApp.currentEvent?.type == .rightMouseUp else { return }
+        guard NSApp.currentEvent?.type == .leftMouseUp else { return }
+        guard let button = item.button else { return }
         let menu = NSMenu()
+        menu.autoenablesItems = false
         for (title, action) in [(L10n.text("refresh"), #selector(manualRefresh)), (L10n.text("quit"), #selector(quit))] {
-            let entry = NSMenuItem(title: title, action: action, keyEquivalent: "")
+            let refreshing = action == #selector(manualRefresh) && fetching
+            let entry = NSMenuItem(title: refreshing ? L10n.text("refreshing") : title, action: action, keyEquivalent: "")
+            entry.isEnabled = !refreshing
             entry.target = self
             menu.addItem(entry)
         }
-        item.menu = menu
-        item.button?.performClick(nil)
-        item.menu = nil
+        menu.addItem(.separator())
+        let status = NSMenuItem(title: error ?? updateDescription(), action: nil, keyEquivalent: "")
+        status.isEnabled = false
+        menu.addItem(status)
+        // Present the menu directly; no synthetic status-button click or temporary menu binding.
+        menu.popUp(positioning: nil, at: NSPoint(x: 0, y: button.bounds.minY), in: button)
     }
     @objc func manualRefresh() { refresh() }
     @objc func quit() { NSApp.terminate(nil) }
@@ -51,6 +58,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func refresh() {
         guard !fetching else { return }
         fetching = true
+        render()
         DispatchQueue.global(qos: .utility).async { [weak self] in
             let process = Process()
             process.executableURL = Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent("UsageReader")
@@ -82,6 +90,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    func updateDescription() -> String {
+        if fetching { return L10n.text("refreshing") }
+        guard let lastUpdate = lastUpdate else { return L10n.text("loading") }
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        formatter.dateStyle = .none
+        return L10n.text("last_updated") + formatter.string(from: lastUpdate)
+    }
     func resetText(_ window: Window, now: Date) -> String {
         guard let timestamp = window.resetsAt else { return "--" }
         let minutes = Int(ceil((timestamp - now.timeIntervalSince1970) / 60))
@@ -103,11 +119,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             return "\(name) \(value) · \(resetText(window, now: now))"
         }
         let stale = error != nil || lastUpdate.map { now.timeIntervalSince($0) > 180 } != false
-        item.button?.title = " " + label("5h", short) + " / " + label(L10n.text("weekly"), weekly) + (stale && !windows.isEmpty ? " ↻" : "")
+        item.button?.title = " " + label("5h", short) + " / " + label(L10n.text("weekly"), weekly) + (fetching || (stale && !windows.isEmpty) ? " ↻" : "")
         item.button?.font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
         item.button?.image = gauge(stale ? nil : short?.remaining)
         item.button?.imagePosition = .imageLeading
-        item.button?.toolTip = error ?? (lastUpdate == nil ? L10n.text("loading") : L10n.text("tooltip"))
+        item.button?.toolTip = fetching ? L10n.text("refreshing") : (error ?? (updateDescription() + "\n" + L10n.text("tooltip")))
         item.button?.setAccessibilityLabel(L10n.text("accessibility") + (item.button?.title ?? ""))
     }
     func gauge(_ remaining: Int?) -> NSImage {
